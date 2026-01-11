@@ -5,7 +5,7 @@
   register: update_compose_projects_stat_result
 
 - name: Get JSON-List of running compose projects
-  ansible.builtin.command: docker compose ls --format json > {{ update_compose_projects_json_path }}/compose_projects.json;
+  ansible.builtin.shell: docker compose ls --format json > {{ update_compose_projects_json_path }}/compose_projects.json;
   when: not update_compose_projects_stat_result.stat.exists
   changed_when: not update_compose_projects_stat_result.stat.exists
 
@@ -20,7 +20,7 @@
     pull: 'missing'
   vars:
     update_compose_projects_src: '{{ item["ConfigFiles"].split(",")[0] | dirname }}'
-  with_items: '{{ slurp_output.content | b64decode | from_json }}'
+  with_items: '{{ update_compose_projects_slurp_output.content | b64decode | from_json }}'
   when:
     - update_compose_projects_src not in update_compose_projects_ignore_projects
 
@@ -28,5 +28,4 @@
   ansible.builtin.file:
     path: "{{ update_compose_projects_json_path }}/compose_projects.json"
     state: absent
-  when: update_compose_projects_stat_result.stat.exists
 ...

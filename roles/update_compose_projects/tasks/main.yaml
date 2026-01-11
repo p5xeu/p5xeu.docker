@@ -1,10 +1,10 @@
 ---
 - name: Update all projects
-  ansible.builtin.incluse_tasks: update_all.yaml
-  when: update_compose_projects_single_project is undefined or update_compose_projects_single_project | length == 0
+  ansible.builtin.include_tasks: update_all.yaml
+  when: update_compose_projects_list is undefined or update_compose_projects_list | length == 0
 
 - name: Update list of projects
-  ansible.builtin.incluse_tasks: update_all.yaml
+  ansible.builtin.include_tasks: update_list.yaml
   when:
     - update_compose_projects_list is defined
     - update_compose_projects_list | length > 0

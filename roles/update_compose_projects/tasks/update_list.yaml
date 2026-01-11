@@ -1,7 +1,7 @@
 ---
-- name: Update all compose projects
+- name: Update compose projects
   community.docker.docker_compose_v2:
     project_src: '{{ item }}'
     pull: 'missing'
-  loop: update_compose_projects_list
+  loop: '{{ update_compose_projects_list }}'
 ...

@@ -19,6 +19,7 @@ argument_specs:
         default: []
         description:
           - 'List of projects (full path) which should be ignored'
+          - 'ex. /opt/docker/traefik'
 
       update_compose_projects_list:
         type: 'list'
@@ -27,5 +28,6 @@ argument_specs:
         default: []
         description:
           - 'List of projects to update (full path)'
+          - 'ex. /opt/docker/traefik'
           - 'When this var is set, only the listed projects will be updated'
 ...
