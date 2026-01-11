@@ -1,0 +1,5 @@
+---
+update_compose_projects_json_path: '/opt/docker/'
+update_compose_projects_ignore_projects: []
+update_compose_projects_list: []
+...

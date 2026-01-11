@@ -1,0 +1,8 @@
+---
+- name: 'Update compose_projects'
+  hosts: '{{ target | default("all") }}'
+  tasks:
+    - name: 'Update all or selected compose projects'
+      ansible.builtin.include_role:
+        name: 'p5xeu.docker.update_compose_projects'
+...
