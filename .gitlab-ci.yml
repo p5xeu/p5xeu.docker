@@ -1,0 +1,12 @@
+---
+include:
+  - project: 'general/pr-t'
+    file: gitlab-ci-template.yml
+    ref: main
+
+# Override docker-build job vars
+image-build:
+  variables:
+    BUILDKIT_BUILD_EXTRAARGS: --opt build-arg:COLLECTION_REPO=git+ssh://git@${CI_SERVER_HOST}:${CI_SERVER_SHELL_SSH_PORT}/${CI_PROJECT_PATH}.git
+      --opt build-arg:COLLECTION_VERSION=${CI_COMMIT_REF_NAME}
+...
