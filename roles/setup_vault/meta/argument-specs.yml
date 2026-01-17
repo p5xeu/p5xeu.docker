@@ -127,7 +127,7 @@ argument_specs:
         default: false
         description:
           - Set, to enable the transit-engine for vault (auto unsealing)
-      
+
       setup_vault_transit_address:
         type: str
         required: false
@@ -135,7 +135,7 @@ argument_specs:
         description:
           - Set to the address of the unsealing-vault
           - Only needed, if setup_vault_transit is true
-      
+
       setup_vault_storage:
         type: str
         required: false
@@ -160,7 +160,7 @@ argument_specs:
         description:
           - Token for the autounsealing, only used when setup_vault_transit is true
           - Will be set in the vault_env file for autounsealing
-      
+
       setup_vault_disable_mlock:
         type: str
         required: false
