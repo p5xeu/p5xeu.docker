@@ -17,7 +17,7 @@
 - name: Update all compose projects
   community.docker.docker_compose_v2:
     project_src: '{{ update_compose_projects_src }}'
-    pull: 'missing'
+    pull: 'always'
   vars:
     update_compose_projects_src: '{{ item["ConfigFiles"].split(",")[0] | dirname }}'
   with_items: '{{ update_compose_projects_slurp_output.content | b64decode | from_json }}'
