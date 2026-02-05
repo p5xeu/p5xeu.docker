@@ -5,4 +5,5 @@
     - name: 'Update all or selected compose projects'
       ansible.builtin.include_role:
         name: 'p5xeu.docker.update_compose_projects'
+      when: role_update_compose_projects_enabled | default(true)
 ...

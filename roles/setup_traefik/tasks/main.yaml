@@ -1,0 +1,33 @@
+---
+- name: Create docker-network traefik-public
+  community.docker.docker_network:
+    name: traefik_public
+    enable_ipv6: true
+    scope: local
+    driver: bridge
+    driver_options: '{}'
+    ipam_config: "{{ setup_traefik_network_ipam_config | default(omit) }}"
+  when: setup_traefik_create_network
+
+- name: Create directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+    owner: root
+    group: docker
+  loop:
+    - "{{ setup_traefik_compose_folder }}"
+    - "{{ setup_traefik_compose_folder }}/config"
+
+- name: Copy compose.yaml to {{ setup_traefik_compose_folder }}
+  ansible.builtin.template:
+    src: "compose.yaml.j2"
+    dest: "{{ setup_traefik_compose_folder }}/compose.yaml"
+    mode: '0644'
+
+- name: Start Traefik
+  community.docker.docker_compose_v2:
+    project_src: "{{ setup_traefik_compose_folder }}"
+    state: present
+...

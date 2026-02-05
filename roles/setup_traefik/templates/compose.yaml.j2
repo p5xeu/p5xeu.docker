@@ -1,0 +1,59 @@
+---
+services:
+  traefik:
+    image: "traefik:v3"
+    container_name: "traefik"
+    restart: always
+    networks:
+      - traefik_public
+    command:
+      # Log-Level
+      - "--log.level=INFO"
+      # Dashboard
+      - "--api.dashboard=true"
+      - "--api.insecure=true"
+      # Provider-Config
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      # Entrypoints
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entryPoints.metrics.address=:8081"
+      # Redirects
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+{% if setup_traefik_readtimeout | default(-1) | > -1 %}
+      - "--entryPoints.websecure.transport.respondingTimeouts.readTimeout={{ setup_traefik_readtimeout }}"
+{% endif %}
+      # Dynamic Config (File Provider)
+      - "--providers.file.directory=/etc/traefik/dynamic"
+      # Metrics
+      - "--metrics.prometheus=true"
+      - "--metrics.prometheus.addrouterslabels=true"
+      - "--metrics.prometheus.entryPoint=metrics"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+      - "8081:8081"
+    volumes:
+      # Docker Socket
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      # Certificate Config
+      - "{{ traefik_compose_folder }}/config/:/etc/traefik/dynamic/:ro"
+    labels:
+      # API
+      - "traefik.http.routers.traefik.service=api@internal"
+      - "traefik.http.routers.traefik.middlewares=api-auth"
+      # Dashboard
+      - "traefik.enable=true"
+      - "traefik.http.routers.traefik.rule=Host(`{{ setup_traefik_dashboard_url }}`)"
+      - "traefik.http.routers.traefik.entrypoints=websecure"
+      - "traefik.http.routers.traefik.tls=true"
+      - "traefik.http.services.traefik.loadbalancer.server.port=8080"
+      - "traefik.http.middlewares.api-auth.basicauth.users={{ setup_traefik_dashboard_auth }}"
+networks:
+  traefik_public:
+    external: true
+...

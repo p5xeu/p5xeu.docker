@@ -1,0 +1,4 @@
+---
+setup_traefik_compose_folder: "/opt/docker/traefik"
+setup_traefik_create_network: true
+...

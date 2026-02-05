@@ -1,0 +1,48 @@
+---
+argument_specs:
+  main:
+    short_description: 'Configure traefik with compose'
+    description:
+      - 'Setup and configure traefik to run with compose'
+    options:
+      setup_traefik_compose_folder:
+        type: 'str'
+        required: false
+        default: "/opt/docker/traefik"
+        description:
+          - 'Change folder of the compose deployment'
+
+      setup_traefik_create_network:
+        type: 'bool'
+        required: false
+        default: true
+        description:
+          - 'Create the traefik_public network'
+          - 'The network is required for traefik, so if you disable this option you have to create the network manual'
+
+      setup_traefik_network_ipam_config:
+        type: 'list'
+        required: false
+        elements: dict
+        description:
+          - 'List of Networks with Gateway for the traefik_public network'
+        options:
+          subnet:
+            type: 'str'
+            required: true
+            description:
+              - 'Subnet of the network with netmask'
+          gateway:
+            type: 'str'
+            required: true
+            description:
+              - 'Gateway of the network'
+
+      setup_traefik_readtimeout:
+        type: int
+        required: false
+        description:
+          - 'Timeout for read'
+          - 'Traefik defaults to 60'
+          - 'Set to zero, to disable the timeout'
+...

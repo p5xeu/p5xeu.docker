@@ -1,0 +1,9 @@
+---
+- name: 'Setup Traefik'
+  hosts: '{{ target | default("all") }}'
+  tasks:
+    - name: 'Setup Traefik'
+      ansible.builtin.include_role:
+        name: 'p5xeu.docker.setup_traefik'
+      when: role_setup_traefik_enabled | default(true)
+...
