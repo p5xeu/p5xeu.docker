@@ -41,7 +41,7 @@ services:
       # Docker Socket
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       # Certificate Config
-      - "{{ traefik_compose_folder }}/config/:/etc/traefik/dynamic/:ro"
+      - "{{ setup_traefik_compose_folder }}/config/:/etc/traefik/dynamic/:ro"
     labels:
       # API
       - "traefik.http.routers.traefik.service=api@internal"

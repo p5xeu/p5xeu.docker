@@ -45,4 +45,18 @@ argument_specs:
           - 'Timeout for read'
           - 'Traefik defaults to 60'
           - 'Set to zero, to disable the timeout'
+
+      setup_traefik_dashboard_url:
+        type: 'str'
+        required: false
+        default: '{{ inventory_hostname }}'
+        description:
+          - 'URL for the Traefik Dashboard'
+
+      setup_traefik_dashboard_auth:
+        type: 'str'
+        required: true
+        description:
+          - 'htpasswd-string for the dashboard basicauth'
+          - '$ needs to be escaped with $ --> $$'
 ...
