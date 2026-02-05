@@ -1,4 +1,5 @@
 ---
 setup_traefik_compose_folder: "/opt/docker/traefik"
 setup_traefik_create_network: true
+setup_traefik_dashboard_url: '{{ inventory_hostname }}'
 ...
