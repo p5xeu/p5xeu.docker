@@ -23,7 +23,7 @@ services:
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
       - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
-{% if setup_traefik_readtimeout | default(-1) | > -1 %}
+{% if setup_traefik_readtimeout | default(-1) > -1 %}
       - "--entryPoints.websecure.transport.respondingTimeouts.readTimeout={{ setup_traefik_readtimeout }}"
 {% endif %}
       # Dynamic Config (File Provider)
