@@ -24,6 +24,9 @@
   ansible.builtin.file:
     path: '/mnt/garage{{ item | regex_search(''[0-9]+$'') }}'
     state: directory
+    owner: 'root'
+    group: 'root'
+    mode: '0770'
   loop: '{{ setup_garage_disk_ids }}'
 
 - name: Mount disks

@@ -1,3 +1,4 @@
+---
 - name: Get Disk ids
   ansible.builtin.set_fact:
     setup_garage_disk_ids: '{{ garage_disk_ids | default([]) + [item[''value''][''links''][''ids''] | first] }}'
