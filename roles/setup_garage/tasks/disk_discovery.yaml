@@ -1,0 +1,13 @@
+- name: Get Disk ids
+  ansible.builtin.set_fact:
+    setup_garage_disk_ids: '{{ garage_disk_ids | default([]) + [item[''value''][''links''][''ids''] | first] }}'
+  loop: '{{ ansible_facts[''devices''] | dict2items }}'
+  loop_control:
+    label: '{{ item[''key''] }}'
+  when: '(item[''value''][''size''] | human_to_bytes) > (setup_garage_disk_discovery_min_size | human_to_bytes)'
+
+- name: Show disk ids
+  ansible.builtin.debug:
+    msg: '{{ item | regex_search(''[0-9]+$'') }}'
+  loop: '{{ setup_garage_disk_ids }}'
+...

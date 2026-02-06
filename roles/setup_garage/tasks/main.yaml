@@ -1,0 +1,25 @@
+---
+- name: Discover Disks
+  ansible.builtin.include_tasks:
+    file: disk_discovery.yaml
+  when:
+    - setup_garage_disk_management_enabled
+    - setup_garage_disk_discovery_enabled
+
+- name: Manage Disks
+  ansible.builtin.include_tasks:
+    file: disk_management.yaml
+  when:
+    - setup_garage_disk_management_enabled
+
+- name: Validate data folder list
+  ansible.builtin.assert:
+    that:
+      - 'setup_garage_data_folders | length > 0'
+    fail_msg: 'No data folders defined in setup_garage_data_folders, add a static list or check the disk discovery'
+    msg: 'Data folders found in setup_garage_data_folders'
+
+- name: Setup Garage
+  ansible.builtin.include_tasks:
+    file: setup.yaml
+...

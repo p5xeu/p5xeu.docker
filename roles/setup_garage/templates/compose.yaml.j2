@@ -1,0 +1,30 @@
+---
+services:
+  garage:
+    image: dxflrs/garage:{{ setup_garage_version }}
+    volumes:
+      - ./config/garage.toml:/etc/garage.toml:ro
+      - ./data/meta:/data/meta
+{% for folder in setup_garage_data_folders %}
+      - {{ folder }}:{{ folder }}
+{% endfor %}
+    networks:
+      default: {}
+{% for network in setup_garage_external_networks %}
+      {{ network}}: {}
+{% endfor %}
+{% if setup_garage_labels | length > 0 %}
+    labels:
+{% for label in setup_garage_labels %}
+      - {{ label}}
+{% endfor %}
+{% endif %}
+
+networks:
+  default:
+    enable_ipv6: {{ setup_garage_enable_ipv6 }}
+{% for network in setup_garage_external_networks %}
+  {{ network}}:
+    external: true
+{% endfor %}
+...

@@ -1,0 +1,41 @@
+---
+- name: Install parted
+  ansible.builtin.package:
+    name:
+      - parted
+
+- name: Create partition
+  community.general.parted:
+    device: /dev/disk/by-id/{{ item }}
+    number: 1
+    state: present
+    fs_type: ext4
+    label: gpt
+    name: 'garage{{ item | regex_search(''[0-9]+$'') }}'
+  loop: '{{ setup_garage_disk_ids }}'
+
+- name: Create a ext4 filesystem on /dev/sdb1
+  community.general.filesystem:
+    fstype: ext4
+    dev: /dev/disk/by-id/{{ item }}-part1
+  loop: '{{ setup_garage_disk_ids }}'
+
+- name: Create data directories
+  ansible.builtin.file:
+    path: '/mnt/garage{{ item | regex_search(''[0-9]+$'') }}'
+    state: directory
+  loop: '{{ setup_garage_disk_ids }}'
+
+- name: Mount disks
+  ansible.posix.mount:
+    path: '/mnt/garage{{ item | regex_search(''[0-9]+$'') }}'
+    src: '/dev/disk/by-partlabel/garage{{ item | regex_search(''[0-9]+$'') }}'
+    fstype: ext4
+    state: mounted
+  loop: '{{ setup_garage_disk_ids }}'
+
+- name: Build data folder list
+  ansible.builtin.set_fact:
+    setup_garage_data_folders: '{{ setup_garage_data_folders | default([]) + [''/mnt/garage'' + item | regex_search(''[0-9]+$'')] }}'
+  loop: '{{ setup_garage_disk_ids }}'
+...

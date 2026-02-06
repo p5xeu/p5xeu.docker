@@ -1,0 +1,9 @@
+---
+- name: 'Setup Garage'
+  hosts: '{{ target | default("all") }}'
+  tasks:
+    - name: 'Setup Garage'
+      ansible.builtin.include_role:
+        name: 'p5xeu.docker.setup_garage'
+      when: role_setup_garage_enabled | default(true)
+...

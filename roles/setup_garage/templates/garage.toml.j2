@@ -1,0 +1,31 @@
+metadata_dir = "/data/meta"
+data_dir = [
+{% for folder in setup_garage_data_folders %}
+    { path = "{{ folder }}", capacity = "1T" },
+{% endfor %}
+]
+db_engine = "sqlite"
+
+replication_factor = 1
+
+rpc_bind_addr = "[::]:3901"
+rpc_public_addr = "127.0.0.1:3901"
+rpc_secret = "{{ setup_garage_rpc_secret }}"
+
+[s3_api]
+s3_region = "garage"
+api_bind_addr = "[::]:3900"
+root_domain = ".{{ setup_garage_domain }}"
+
+# [s3_web]
+# bind_addr = "[::]:3902"
+# root_domain = ".web.garage.localhost"
+# index = "index.html"
+
+[k2v_api]
+api_bind_addr = "[::]:3904"
+
+[admin]
+api_bind_addr = "[::]:3903"
+admin_token = "{{ setup_garage_admin_token }}"
+metrics_token = "{{ setup_garage_metrics_token }}"

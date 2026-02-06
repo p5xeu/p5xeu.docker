@@ -1,0 +1,15 @@
+---
+# renovate: datasource=docker depName=dxflrs/garage versioning=docker
+setup_garage_version: 'v2.2.0'
+setup_garage_compose_folder: "/opt/docker/garage"
+
+setup_garage_disk_management_enabled: false
+# setup_garage_disk_ids: []
+setup_garage_disk_discovery_enabled: true
+setup_garage_disk_discovery_min_size: 1TB
+# setup_garage_data_folders:
+
+setup_garage_enable_ipv6: true
+setup_garage_external_networks: []
+setup_garage_labels: []
+...

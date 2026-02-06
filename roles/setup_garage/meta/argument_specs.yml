@@ -1,0 +1,80 @@
+---
+argument_specs:
+  main:
+    short_description: 'Configure garage with compose'
+    description:
+      - 'Setup and configure garage to run with compose'
+    options:
+      setup_garage_version:
+        type: 'str'
+        required: false
+        # renovate: datasource=docker depName=dxflrs/garage versioning=docker
+        default: 'v2.2.0'
+        description:
+          - 'Garage version used for setup'
+
+      setup_garage_compose_folder:
+        type: 'str'
+        required: false
+        default: "/opt/docker/garage"
+        description:
+          - 'Change folder of the compose deployment'
+
+      setup_garage_disk_management_enabled:
+        type: 'bool'
+        required: false
+        default: false
+        description:
+          - 'Enable automatic disk managment'
+          - 'Requires: `setup_garage_disk_discovery_enabled` or `setup_garage_disk_ids`'
+
+      setup_garage_disk_ids:
+        type: 'list'
+        elements: 'str'
+        required: false
+        description:
+          - 'List of disk IDs to use for disk managment'
+      
+      setup_garage_disk_discovery_enabled:
+        type: 'bool'
+        required: false
+        default: false
+        description:
+          - 'Enable disk discovery for disk managment'
+
+      setup_garage_disk_discovery_min_size:
+        type: 'str'
+        required: false
+        default: '1TB'
+        description:
+          - 'Minimal size of Disks to discover'
+
+      setup_garage_data_folders:
+        type: 'list'
+        elements: 'str'
+        required: false
+        description:
+          - 'List of data folders for garage'
+          - 'Only required when `setup_garage_disk_management_enabled` is `false`'
+
+      setup_garage_enable_ipv6:
+        type: 'bool'
+        required: false
+        default: true
+        description:
+          - 'Enable IPv6 for garage'
+
+      setup_garage_external_networks:
+        type: 'list'
+        elements: 'str'
+        required: false
+        description:
+          - 'External networks to attach for the container'
+
+      setup_garage_labels:
+        type: 'list'
+        elements: 'str'
+        required: false
+        description:
+          - 'Labels for the container'
+...

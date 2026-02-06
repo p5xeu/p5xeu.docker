@@ -1,0 +1,26 @@
+- name: Create directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+    owner: root
+    group: docker
+  loop:
+    - "{{ setup_garage_compose_folder }}"
+    - "{{ setup_garage_compose_folder }}/config"
+
+- name: Create garage config
+  ansible.builtin.template:
+    src: "garage.toml.j2"
+    dest: "{{ setup_garage_compose_folder }}/config/garage.toml"
+
+- name: Copy compose.yaml to {{ setup_garage_compose_folder }}
+  ansible.builtin.template:
+    src: "compose.yaml.j2"
+    dest: "{{ setup_garage_compose_folder }}/compose.yaml"
+    mode: '0644'
+
+- name: Start garage
+  community.docker.docker_compose_v2:
+    project_src: "{{ setup_garage_compose_folder }}"
+    state: present
