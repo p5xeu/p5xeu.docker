@@ -17,17 +17,24 @@
     owner: root
     group: docker
   loop:
-    - "{{ setup_traefik_compose_folder }}"
-    - "{{ setup_traefik_compose_folder }}/config"
+    - "{{ setup_traefik_compose_path }}"
+    - "{{ setup_traefik_compose_path }}/config"
 
-- name: Copy compose.yaml to {{ setup_traefik_compose_folder }}
+- name: Copy compose.yaml to {{ setup_traefik_compose_path }}
   ansible.builtin.template:
     src: "compose.yaml.j2"
-    dest: "{{ setup_traefik_compose_folder }}/compose.yaml"
+    dest: "{{ setup_traefik_compose_path }}/compose.yaml"
     mode: '0644'
+
+- name: Copy certificates.yaml to {{ setup_traefik_compose_path }}/config
+  ansible.builtin.template:
+    src: "certificates.yaml.j2"
+    dest: "{{ setup_traefik_compose_path }}/config/certificates.yaml"
+    mode: '0644'
+  when: 'setup_traefik_cert_domains | default([]) | length > 0'
 
 - name: Start Traefik
   community.docker.docker_compose_v2:
-    project_src: "{{ setup_traefik_compose_folder }}"
+    project_src: "{{ setup_traefik_compose_path }}"
     state: present
 ...

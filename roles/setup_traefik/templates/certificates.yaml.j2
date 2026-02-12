@@ -1,0 +1,8 @@
+---
+tls:
+  certificates:
+{% for cert in setup_traefik_cert_domains | default([]) %}
+    - certFile: "/etc/certs/{{ cert }}/fullchain.pem"
+      keyFile: "/etc/certs/{{ cert }}/privkey.pem"
+{% endfor %}
+...

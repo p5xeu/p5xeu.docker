@@ -5,12 +5,12 @@ argument_specs:
     description:
       - 'Setup and configure traefik to run with compose'
     options:
-      setup_traefik_compose_folder:
+      setup_traefik_compose_path:
         type: 'str'
         required: false
         default: "/opt/docker/traefik"
         description:
-          - 'Change folder of the compose deployment'
+          - 'Change path of the compose deployment'
 
       setup_traefik_create_network:
         type: 'bool'
@@ -59,4 +59,18 @@ argument_specs:
         description:
           - 'htpasswd-string for the dashboard basicauth'
           - '$ needs to be escaped with $ --> $$'
+
+      setup_traefik_certs_path:
+        type: 'str'
+        required: false
+        default: '/opt/certs'
+        description:
+          - 'Change path of the certs folder'
+
+      setup_traefik_cert_domains:
+        type: 'list'
+        elements: 'str'
+        required: false
+        description:
+          - 'List of Domains with custom Certs'
 ...
