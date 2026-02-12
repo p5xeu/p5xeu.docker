@@ -26,7 +26,7 @@
     dest: "{{ setup_traefik_compose_path }}/compose.yaml"
     mode: '0644'
 
-- name: Copy certificates.yaml to {{ setup_traefik_compose_path }}/config
+- name: Copy certificates.yaml to {{ setup_traefik_compose_path + "/config" }}
   ansible.builtin.template:
     src: "certificates.yaml.j2"
     dest: "{{ setup_traefik_compose_path }}/config/certificates.yaml"
