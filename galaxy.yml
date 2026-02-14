@@ -43,6 +43,7 @@ tags: ['linux', 'docker', 'container']
 dependencies:
   community.docker: '*'
   community.general: '*'
+  ansible.posix: '*'
 
 # The URL of the originating SCM repository
 repository: https://gitlab.doofkopf.de/ansible-collections/doofkopf.docker
