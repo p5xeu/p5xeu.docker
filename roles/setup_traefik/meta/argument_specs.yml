@@ -89,7 +89,7 @@ argument_specs:
             type: int
             required: true
             description:
-              - 'Port of the Entrypoint'     
+              - 'Port of the Entrypoint'
         description:
-          - "Additional Entrypoints to add and expose"             
+          - "Additional Entrypoints to add and expose"
 ...
