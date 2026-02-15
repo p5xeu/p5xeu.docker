@@ -116,7 +116,7 @@ argument_specs:
               - 'Email to use for the resolver'
         description:
           - "List of Cert Resolvers like acme"
-    
+
       setup_traefik_dashboard_certresolver:
         type: 'str'
         required: false
