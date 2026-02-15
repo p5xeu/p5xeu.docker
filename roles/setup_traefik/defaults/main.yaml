@@ -3,4 +3,5 @@ setup_traefik_compose_path: "/opt/docker/traefik"
 setup_traefik_create_network: true
 setup_traefik_dashboard_url: '{{ inventory_hostname }}'
 setup_traefik_certs_path: '/opt/certs'
+setup_traefik_additional_entrypoints: []
 ...

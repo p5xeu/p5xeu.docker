@@ -19,6 +19,9 @@ services:
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--entryPoints.metrics.address=:8081"
+{% for entrypoint in setup_traefik_additional_entrypoints %}
+      - "--entryPoints.{{ entrypoint.name }}.address=:{{ entrypoint.port }}"
+{% endfor %}
       # Redirects
       - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
       - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
@@ -37,6 +40,9 @@ services:
       - "443:443"
       - "8080:8080"
       - "8081:8081"
+{% for entrypoint in setup_traefik_additional_entrypoints %}
+      - "{{ entrypoint.port }}:{{ entrypoint.port }}"
+{% endfor %}
     volumes:
       # Docker Socket
       - "/var/run/docker.sock:/var/run/docker.sock:ro"

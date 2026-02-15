@@ -73,4 +73,23 @@ argument_specs:
         required: false
         description:
           - 'List of Domains with custom Certs'
+
+      setup_traefik_additional_entrypoints:
+        type: 'list'
+        elements: 'dict'
+        required: false
+        default: []
+        options:
+          name:
+            type: 'str'
+            required: true
+            description:
+              - 'Name of the Entrypoint'
+          port:
+            type: int
+            required: true
+            description:
+              - 'Port of the Entrypoint'     
+        description:
+          - "Additional Entrypoints to add and expose"             
 ...
