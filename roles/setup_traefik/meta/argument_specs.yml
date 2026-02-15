@@ -78,7 +78,6 @@ argument_specs:
         type: 'list'
         elements: 'dict'
         required: false
-        default: []
         options:
           name:
             type: 'str'
@@ -86,10 +85,41 @@ argument_specs:
             description:
               - 'Name of the Entrypoint'
           port:
-            type: int
+            type: 'int'
             required: true
             description:
               - 'Port of the Entrypoint'
         description:
           - "Additional Entrypoints to add and expose"
+
+      setup_traefik_certificatesresolvers:
+        type: 'list'
+        elements: 'dict'
+        required: false
+        options:
+          name:
+            type: 'str'
+            required: true
+            description:
+              - 'Name of the resolver'
+          mode:
+            type: 'str'
+            required: true
+            description:
+              - 'mode of the resolver'
+            choices:
+              - 'acme-http'
+          email:
+            type: 'str'
+            required: true
+            description:
+              - 'Email to use for the resolver'
+        description:
+          - "List of Cert Resolvers like acme"
+    
+      setup_traefik_dashboard_certresolver:
+        type: 'str'
+        required: false
+        description:
+          - 'Certresolver to use for the traefik dashboard'
 ...

@@ -19,7 +19,7 @@ services:
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
       - "--entryPoints.metrics.address=:8081"
-{% for entrypoint in setup_traefik_additional_entrypoints %}
+{% for entrypoint in setup_traefik_additional_entrypoints | default([]) %}
       - "--entryPoints.{{ entrypoint.name }}.address=:{{ entrypoint.port }}"
 {% endfor %}
       # Redirects
@@ -35,12 +35,20 @@ services:
       - "--metrics.prometheus=true"
       - "--metrics.prometheus.addrouterslabels=true"
       - "--metrics.prometheus.entryPoint=metrics"
+{% for resolver in setup_traefik_certificatesresolvers | default([]) %}
+{% if resolver.mode == 'acme-http' %}
+      # Certificates
+      - "--certificatesresolvers.{{ resolver.name }}.acme.email={{ resolver.email }}"
+      - "--certificatesresolvers.{{ resolver.name }}.acme.storage=/data/acme-{{ resolver.name }}.json"
+      - "--certificatesresolvers.{{ resolver.name }}.acme.httpchallenge.entrypoint=web"
+{% endif %}
+{% endfor %}
     ports:
       - "80:80"
       - "443:443"
       - "8080:8080"
       - "8081:8081"
-{% for entrypoint in setup_traefik_additional_entrypoints %}
+{% for entrypoint in setup_traefik_additional_entrypoints | default([]) %}
       - "{{ entrypoint.port }}:{{ entrypoint.port }}"
 {% endfor %}
     volumes:
@@ -48,6 +56,7 @@ services:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       # Dynamic Config
       - "{{ setup_traefik_compose_path }}/config/:/etc/traefik/dynamic/:ro"
+      - "{{ setup_traefik_compose_path }}/data/:/data/"
 {% if setup_traefik_cert_domains | default([]) | length > 0 %}
       # Certs
       - "{{ setup_traefik_certs_path }}:/etc/certs/:ro"
@@ -63,6 +72,9 @@ services:
       - "traefik.http.routers.traefik.tls=true"
       - "traefik.http.services.traefik.loadbalancer.server.port=8080"
       - "traefik.http.middlewares.api-auth.basicauth.users={{ setup_traefik_dashboard_auth }}"
+{% if setup_traefik_dashboard_certresolver is defined and setup_traefik_dashboard_certresolver | length > 0 %}
+      - "traefik.http.routers.traefik.tls.certresolver={{ setup_traefik_dashboard_certresolver }}"
+{% endif %}
 networks:
   traefik_public:
     external: true
