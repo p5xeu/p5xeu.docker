@@ -1,9 +1,13 @@
-metadata_dir = "/data/meta"
+metadata_dir = "/data/meta
+{% if setup_garage_data_folders | length == 1 %}
+data_dir = "{{ setup_garage_data_folders | first }}"
+{% else %}
 data_dir = [
 {% for folder in setup_garage_data_folders %}
     { path = "{{ folder }}", capacity = "1T" },
 {% endfor %}
 ]
+{% endif %}
 db_engine = "lmdb"
 
 replication_factor = 1
