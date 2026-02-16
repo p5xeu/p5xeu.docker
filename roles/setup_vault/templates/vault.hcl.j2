@@ -31,6 +31,6 @@ seal "transit" {
 {% endif %}
 
 {% if setup_vault_cluster %}
-cluster_addr = "http://{{ setup_vault_name }}:{{ setup_vault_cluster_bind_port }}"
+cluster_addr = "http://{{ setup_vault_cluster_address }}:{{ setup_vault_cluster_bind_port }}"
 api_addr = "http://127.0.0.1:{{ setup_vault_bind_port }}"
 {% endif %}

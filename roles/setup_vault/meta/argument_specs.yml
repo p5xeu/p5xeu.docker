@@ -205,6 +205,13 @@ argument_specs:
         description:
           - 'Should the instance be part of a cluster'
 
+      setup_vault_cluster_address:
+        type: str
+        required: false
+        default: '{{ setup_vault_name }}'
+        description:
+          - 'Cluster address of this vault instance'
+
       setup_vault_cluster_expose:
         type: bool
         required: false

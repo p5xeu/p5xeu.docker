@@ -28,6 +28,7 @@ setup_vault_cluster_bind_address: "[::]"
 setup_vault_cluster_bind_port: 8300
 
 setup_vault_cluster: false
+setup_vault_cluster_address: '{{ setup_vault_name }}'
 setup_vault_cluster_expose: false
 setup_vault_cluster_external_port: 8300
 ...
