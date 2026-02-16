@@ -3,9 +3,14 @@ services:
   {{ setup_vault_name }}:
     image: {{ setup_vault_image }}:{{ setup_vault_version }}
     container_name: {{ setup_vault_name }}
-{% if setup_vault_expose %}
+{% if setup_vault_expose or setup_vault_cluster_expose %}
     ports:
+{% if setup_vault_expose %}
       - "{{ setup_vault_external_port }}:{{ setup_vault_bind_port }}"
+{% endif %}
+{% if setup_vault_cluster_expose %}
+      - "{{ setup_vault_cluster_external_port }}:{{ setup_vault_cluster_bind_port }}"
+{% endif %}
 {% endif %}
     restart: always
     volumes:

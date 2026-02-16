@@ -204,4 +204,18 @@ argument_specs:
         default: false
         description:
           - 'Should the instance be part of a cluster'
+
+      setup_vault_cluster_expose:
+        type: bool
+        required: false
+        default: true
+        description:
+          - Set to false, if traefik is used or the vault cluster should not expose a port
+
+      setup_vault_cluster_external_port:
+        type: str
+        required: false
+        default: 8300
+        description:
+          - Port, on which vault cluster should be exposed
 ...
