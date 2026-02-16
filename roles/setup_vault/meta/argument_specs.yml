@@ -208,7 +208,7 @@ argument_specs:
       setup_vault_cluster_expose:
         type: bool
         required: false
-        default: true
+        default: false
         description:
           - Set to false, if traefik is used or the vault cluster should not expose a port
 
