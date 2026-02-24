@@ -71,6 +71,13 @@ argument_specs:
         description:
           - 'External networks to attach for the container'
 
+      setup_garage_port_mappings:
+        type: 'list'
+        elements: 'str'
+        required: false
+        description:
+          - 'Docker port mappings for garage'
+
       setup_garage_labels:
         type: 'list'
         elements: 'str'

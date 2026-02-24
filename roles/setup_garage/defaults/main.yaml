@@ -11,5 +11,6 @@ setup_garage_disk_discovery_min_size: 1TB
 
 setup_garage_enable_ipv6: true
 setup_garage_external_networks: []
+setup_garage_port_mappings: []
 setup_garage_labels: []
 ...

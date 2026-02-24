@@ -13,6 +13,12 @@ services:
 {% for network in setup_garage_external_networks %}
       {{ network}}: {}
 {% endfor %}
+{% if setup_garage_port_mappings | length > 0 %}
+    ports:
+{% for port in setup_garage_port_mappings %}
+      - {{ port}}
+{% endfor %}
+{% endif %}
 {% if setup_garage_labels | length > 0 %}
     labels:
 {% for label in setup_garage_labels %}
