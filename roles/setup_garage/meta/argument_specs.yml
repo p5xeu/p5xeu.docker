@@ -57,6 +57,13 @@ argument_specs:
           - 'List of data folders for garage'
           - 'Only required when `setup_garage_disk_management_enabled` is `false`'
 
+      setup_garage_rpc_public_addr:
+        type: 'str'
+        required: false
+        default: '127.0.0.1:3901'
+        description:
+          - 'Public address for RPC'
+
       setup_garage_enable_ipv6:
         type: 'bool'
         required: false

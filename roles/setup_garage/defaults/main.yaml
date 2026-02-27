@@ -8,6 +8,7 @@ setup_garage_disk_management_enabled: false
 setup_garage_disk_discovery_enabled: true
 setup_garage_disk_discovery_min_size: 1TB
 # setup_garage_data_folders:
+setup_garage_rpc_public_addr: '127.0.0.1:3901'
 
 setup_garage_enable_ipv6: true
 setup_garage_external_networks: []
