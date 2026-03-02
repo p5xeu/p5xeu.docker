@@ -21,10 +21,12 @@ s3_region = "garage"
 api_bind_addr = "[::]:3900"
 root_domain = ".{{ setup_garage_domain }}"
 
-# [s3_web]
-# bind_addr = "[::]:3902"
-# root_domain = ".web.garage.localhost"
-# index = "index.html"
+{% if setup_garage_web_enabled %}
+[s3_web]
+bind_addr = "[::]:3902"
+root_domain = "{{ setup_garage_web_root_domain }}"
+index = "{{ setup_garage_web_index }}"
+{% endif %}
 
 [k2v_api]
 api_bind_addr = "[::]:3904"

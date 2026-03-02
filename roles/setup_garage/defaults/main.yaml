@@ -14,4 +14,8 @@ setup_garage_enable_ipv6: true
 setup_garage_external_networks: []
 setup_garage_port_mappings: []
 setup_garage_labels: []
+
+setup_garage_web_enabled: false
+setup_garage_web_root_domain: '.web.garage.localhost'
+setup_garage_web_index: 'index.html'
 ...

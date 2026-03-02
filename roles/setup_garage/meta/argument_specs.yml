@@ -91,4 +91,25 @@ argument_specs:
         required: false
         description:
           - 'Labels for the container'
+
+      setup_garage_web_enabled:
+        type: 'bool'
+        required: false
+        default: false
+        description:
+          - 'Enable Garage website support'
+
+      setup_garage_web_root_domain:
+        type: 'str'
+        required: false
+        default: '.web.garage.localhost'
+        description:
+          - 'Root domain for Garage websites'
+
+      setup_garage_web_index:
+        type: 'str'
+        required: false
+        default: 'index.html'
+        description:
+          - 'Index document for Garage websites'
 ...
