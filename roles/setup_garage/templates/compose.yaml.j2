@@ -2,6 +2,7 @@
 services:
   garage:
     image: dxflrs/garage:{{ setup_garage_version }}
+    restart: always
     volumes:
       - ./config/garage.toml:/etc/garage.toml:ro
       - ./data/meta:/data/meta
